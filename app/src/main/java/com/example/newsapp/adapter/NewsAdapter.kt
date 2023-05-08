@@ -16,6 +16,16 @@ class NewsAdapter(private val context: Activity, val newsArrayList: List<Article
     RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
 
+    private lateinit var myListener: onItemClickListener
+    interface onItemClickListener {
+        fun onItemClicking(position: Int)
+    }
+
+    fun setOnItemClickListener(listener : onItemClickListener){
+        myListener = listener
+    }
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
 
         val itemView = LayoutInflater.from(context).inflate(R.layout.news_items, parent, false)
@@ -30,6 +40,10 @@ class NewsAdapter(private val context: Activity, val newsArrayList: List<Article
         holder.detail.text = currentItem.description
 
         Picasso.get().load(currentItem.urlToImage).into(holder.image)
+
+        holder.itemView.setOnClickListener {
+            myListener.onItemClicking(position)
+        }
     }
 
     override fun getItemCount(): Int {

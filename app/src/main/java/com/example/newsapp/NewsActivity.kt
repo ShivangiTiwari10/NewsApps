@@ -1,5 +1,6 @@
 package com.example.newsapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -15,6 +16,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 class NewsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNewsBinding
     private lateinit var myadapter: NewsAdapter
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,12 +42,23 @@ class NewsActivity : AppCompatActivity() {
                 binding.myRecycler.adapter = myadapter
 
                 binding.myRecycler.layoutManager = LinearLayoutManager(this@NewsActivity)
-    }
+
+                myadapter.setOnItemClickListener(object : NewsAdapter.onItemClickListener {
+                    override fun onItemClicking(position: Int) {
+                        val clickedArticle = articleList[position]
+
+                        val intent = Intent(this@NewsActivity, NewsDetailActivity::class.java)
+                        intent.putExtra("heading",clickedArticle.author)
+                        startActivity(intent)
+                    }
+                })
+            }
+
             override fun onFailure(call: Call<newsData?>, t: Throwable) {
 
                 Log.d("MyRetrofitActivity", "onFailure ${t.message}")
             }
         })
 
-
-}}
+    }
+}
