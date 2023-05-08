@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">NewsApp</string>
     <string name="todo">TODO</string>
+    <string name="news_title">News Title</string>
+    <string name="news_detail">News Detail</string>
+    <string name="here_the_all_news">Here the all News</string>
 </resources>
