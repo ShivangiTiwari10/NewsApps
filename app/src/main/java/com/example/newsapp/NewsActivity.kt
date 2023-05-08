@@ -14,8 +14,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class NewsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNewsBinding
-
     private lateinit var myadapter: NewsAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -23,14 +23,11 @@ class NewsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.hide()
-
         val retrofitBuilder = Retrofit.Builder()
-
             .baseUrl("https://newsapi.org/v2/")
             .addConverterFactory((GsonConverterFactory.create()))
             .build()
             .create(NewsApiInterface::class.java)
-
         val retrofitData = retrofitBuilder.getNewsData()
 
         retrofitData.enqueue(object : Callback<newsData?> {
@@ -42,14 +39,12 @@ class NewsActivity : AppCompatActivity() {
                 binding.myRecycler.adapter = myadapter
 
                 binding.myRecycler.layoutManager = LinearLayoutManager(this@NewsActivity)
-
-            }
-
+    }
             override fun onFailure(call: Call<newsData?>, t: Throwable) {
 
                 Log.d("MyRetrofitActivity", "onFailure ${t.message}")
             }
         })
 
-    }
-}
+
+}}
