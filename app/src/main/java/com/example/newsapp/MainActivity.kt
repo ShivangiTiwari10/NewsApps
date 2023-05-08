@@ -1,5 +1,6 @@
 package com.example.newsapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.newsapp.databinding.ActivityMainBinding
@@ -19,9 +20,11 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         activityScope.launch {
+
             delay(2000)
 
-
+            val intent = Intent(this@MainActivity, NewsActivity::class.java)
+            startActivity(intent)
             finish()
         }
     }
