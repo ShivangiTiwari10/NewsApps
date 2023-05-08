@@ -18,7 +18,6 @@ class NewsActivity : AppCompatActivity() {
     private lateinit var myadapter: NewsAdapter
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -48,7 +47,10 @@ class NewsActivity : AppCompatActivity() {
                         val clickedArticle = articleList[position]
 
                         val intent = Intent(this@NewsActivity, NewsDetailActivity::class.java)
-                        intent.putExtra("heading",clickedArticle.author)
+                        intent.putExtra("heading", clickedArticle.author)
+                        intent.putExtra("content", clickedArticle.content)
+                        intent.putExtra("Image", clickedArticle.urlToImage)
+                        intent.putExtra("detail", clickedArticle.description)
                         startActivity(intent)
                     }
                 })
