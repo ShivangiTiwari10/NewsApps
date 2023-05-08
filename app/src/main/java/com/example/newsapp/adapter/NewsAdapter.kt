@@ -4,10 +4,15 @@ import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.newsapp.Article
 import com.example.newsapp.R
+import com.google.android.material.imageview.ShapeableImageView
+import com.squareup.picasso.Picasso
 
-class NewsAdapter(val context: Activity) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+class NewsAdapter(private val context: Activity, val newsArrayList: List<Article>) :
+    RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
@@ -19,14 +24,27 @@ class NewsAdapter(val context: Activity) : RecyclerView.Adapter<NewsAdapter.News
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val currentItem = newsArrayList[position]
+        holder.title.text = currentItem.title
+        holder.detail.text = currentItem.description
+
+        Picasso.get().load(currentItem.urlToImage).into(holder.image)
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return newsArrayList.size
     }
 
     class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val title: TextView
+        val image: ShapeableImageView
+        val detail: TextView
+
+        init {
+            title = itemView.findViewById(R.id.NewsTitle)
+            image = itemView.findViewById(R.id.productImage)
+            detail = itemView.findViewById(R.id.newsDetail)
+        }
 
     }
 
